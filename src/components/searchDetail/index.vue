@@ -170,6 +170,7 @@ export default {
 <style scoped>
     .a{
         width:5.5rem;
+        height:auto;
         position: absolute;
         left:2rem;padding:0 .2rem;
     }

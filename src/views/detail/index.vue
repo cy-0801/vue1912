@@ -1,10 +1,30 @@
 <template>
-    <div>
-        <div class="header">
+    <div class="page">
+        <div class="header" >
             <div class="back" @click=handler()>
                 <img src="../../assets/images/home/goods/back.png" alt />
             </div>
-
+            <div class="center">
+                <router-link
+                    to="/detail/goods"
+                    tag="div"
+                >商品</router-link>
+                <router-link
+                    to="/detail/detail"
+                    tag="div"
+                >详情</router-link>
+                <router-link
+                    to="/detail/assess"
+                    tag="div"
+                >评价</router-link>
+            </div>
+            <div class="right_icon">
+                <img src="../../assets/images/home/goods/cart.png" alt="">
+                <div class="slot"></div>
+            </div>
+        </div>
+        <div class="router_view">
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -14,7 +34,7 @@ export default {
     name:"detail",
     methods:{
         handler(){
-            this.$router.back(-1)
+            this.$router.push("/home")
         }
     }
 }
@@ -22,14 +42,53 @@ export default {
 
 
 <style scoped>
+    .page{
+        width:100%;height:100%;display:flex;
+    }
     .header{
-        width:100%;height:1rem;background:red;
+        width:100%;height:1rem;
         position: absolute;left:0;top:0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     .back{
         width:1rem;height:1rem;
     }
     .back img{
         width:100%;height:100%;
+    }
+    .header .center{
+        width:4rem;height:100%;
+        display:flex;justify-content: space-between;
+        align-items: center;font-size:.36rem;
+    }
+    .header .center div{
+        height:100%;
+        display: flex;
+        align-items: center;
+    }
+    .header .right_icon{
+        width:1rem;height:100%;position: relative;
+        display: flex;justify-content: center;align-items: center;
+    }
+    .header .right_icon img{
+        width:80%;height:80%;
+    }
+    .header .right_icon .slot{
+        width:0.2rem;height:0.2rem;background:red;
+        border:1px solid #ccc;
+        border-radius: .1rem;
+        position:absolute;
+        right:.1rem;
+        top:.24rem;
+    }
+    .router_view{
+        width:100%;height:12.32rem;overflow: auto;
+        position: absolute;top:1rem;left:0;
+        background:#eee;
+    }
+    .router-link-active{
+        border-bottom:2px solid #c33;
     }
 </style>

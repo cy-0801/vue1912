@@ -54,7 +54,25 @@ export default new Router({
         component:()=>import("./views/detail"),
         meta:{
             flag:false
-        }
+        },
+        redirect:"/detail/goods",
+        children:[
+            {
+                path:"/detail/goods",
+                name:"goods",
+                component:()=>import("./components/detail/goods.vue")
+            },
+            {
+                path:"/detail/detail",
+                name:"detail0",
+                component:()=>import("./components/detail/detail.vue")
+            },
+            {
+                path:"/detail/assess",
+                name:"assess",
+                component:()=>import("./components/detail/assess.vue")
+            }
+        ]
     }
     
   ]

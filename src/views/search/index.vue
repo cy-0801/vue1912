@@ -7,44 +7,48 @@
             <div>请输入宝贝名称</div>
         </div>
         <div class="page1">
-            <van-sidebar v-model="activeKey">
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="潮流女装" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-                <van-sidebar-item title="标签名称" class="aaa"/>
-            </van-sidebar>
-            <router-view></router-view>
+            <div class="page1_left">
+                <van-sidebar v-model="activeKey">
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="潮流女装" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item title="标签名称" class="aaa"/>
+                </van-sidebar>
+            </div>
+            <div class="page1_right">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
 </template>
@@ -85,9 +89,20 @@ export default {
     left: 0;
     right: 0;
     padding-top: 1rem;
-    padding-bottom: 1rem;
+}
+.page1 .page1_left{
+    width:2rem;
+    height:12.3rem;
     overflow: auto;
 }
+.page1 .page1_right{
+    height:12.3rem;
+    width:5.5rem;
+    overflow: auto;
+}
+/* 
+ ------------------------------------
+ */
 .header {
     position: fixed;
     width: 100%;
