@@ -14,8 +14,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 #app{
     overflow: auto;
 }
+
 </style>
