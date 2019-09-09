@@ -73,6 +73,11 @@ export default new Router({
                 component:()=>import("./components/detail/assess.vue")
             }
         ]
+    },
+    {
+        path:"/searchOne",
+        name:"searchOne",
+        component:()=>import("./views/searchOne")
     }
     
   ]
