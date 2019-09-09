@@ -5,18 +5,18 @@
                 <img src="../../assets/images/home/goods/back.png" alt />
             </div>
             <div class="center">
-                <router-link
-                    to="/detail/goods"
+                <router-link v-for="(item,index) in nav" :key="index"
+                    :to="item.path"
                     tag="div"
-                >商品</router-link>
-                <router-link
+                >{{item.name}}</router-link>
+                <!-- <router-link
                     to="/detail/detail"
                     tag="div"
                 >详情</router-link>
                 <router-link
                     to="/detail/assess"
                     tag="div"
-                >评价</router-link>
+                >评价</router-link> -->
             </div>
             <div class="right_icon">
                 <img src="../../assets/images/home/goods/cart.png" alt="">
@@ -32,11 +32,30 @@
 <script>
 export default {
     name:"detail",
+    data(){
+        return {
+            nav:[
+                {
+                    path:"/detail/goods?gid="+this.$route.query.gid,
+                    name:"商品"
+                },
+                {
+                    path:"/detail/detail?gid="+this.$route.query.gid,
+                    name:"详情"
+                },
+                {
+                    path:"/detail/assess?gid="+this.$route.query.gid,
+                    name:"评价"
+                }
+            ]
+        }
+    },
     methods:{
         handler(){
             this.$router.push("/home")
         }
-    }
+    },
+
 }
 </script>
 

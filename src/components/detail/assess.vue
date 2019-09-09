@@ -1,78 +1,36 @@
 <template>
     <div class="pingjia">
-        <div class="pingjia_font">商品评价(22)</div>
+        <div class="pingjia_font">商品评价({{this.list.length}})</div>
         <ul>
-            <li class="liList">
+            <li class="liList" v-for="(item,index) in list" :key="index">
                 <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
+                    <img :src="item.head" alt />
+                    <div>{{item.nickname}}</div>
                 </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
-            </li>
-            <li class="liList">
-                <div>
-                    <img src="//vueshop.glbuys.com/userfiles/head/924828077.png" alt />
-                    <div>abcd大公司</div>
-                </div>
-                <div class="aaa">liupilliupiiliuplliupiiliupiliupiliupiliupi</div>
-                <div class="time">2018-10-15 14:29:29</div>
+                <div class="aaa">{{item.content}}</div>
+                <div class="time">{{item.times}}</div>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+import {comment} from "@api"
 export default {
-    name: "Assess"
+    name: "Assess",
+    data(){
+        return {
+            list:[]
+        }
+    },
+    async created(){
+        let data = await comment(this.$route.query.gid);
+        if(data.code == "200"){
+             this.list = data.data;
+        }else {
+            this.list = []
+        }
+    }
 };
 </script>
 

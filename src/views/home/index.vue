@@ -46,7 +46,7 @@
             <div class="goods" v-if="index==0 | index%2==0" :key="index">
                 <div class="goodsTitle">------{{item.title}}------</div>
                 <div class="goodsCenter">
-                    <div class="goods_left" @click="handlerdetail()">
+                    <div class="goods_left" @click="handlerdetail(item.items[0].gid)">
                         <div class="jieshao">{{item.items[0].title}}</div>
                         <span class="dazhe">精品打折</span>
                         <span class="price">{{item.items[0].price}}</span>
@@ -55,14 +55,14 @@
                         </div>
                     </div>
                     <div class="goods_right">
-                        <div class="goods_r_top">
+                        <div class="goods_r_top" @click="handlerdetail(item.items[1].gid)">
                             <p>{{item.items[1].title}}</p>
                             <p>品质精挑</p>
                             <div>
                                 <img :src="item.items[1].image" alt />
                             </div>
                         </div>
-                        <div class="goods_r_bottom">
+                        <div class="goods_r_bottom" @click="handlerdetail(item.items[2].gid)">
                             <p>{{item.items[2].title}}</p>
                             <p>品质精挑</p>
                             <div>
@@ -73,7 +73,12 @@
                 </div>
                 <div class="goodsFooter">
                     <ul>
-                        <li class="goodsList" v-for="(item2,index2) in item.items.slice(3)" :key="index2">
+                        <li
+                            class="goodsList"
+                            v-for="(item2,index2) in item.items.slice(3)"
+                            :key="index2"
+                            @click="handlerdetail(item2.gid)"
+                        >
                             <p>{{item2.title}}</p>
                             <div>
                                 <img :src="item2.image" alt />
@@ -84,43 +89,50 @@
                     </ul>
                 </div>
             </div>
-            <div class="goods2" v-else  :key="index">
-            <div class="goodsTitle">------{{item.title}}------</div>
-            <div class="goods2_center">
-                <div class="goods2_center_left">
-                    <p>{{item.items[0].title}}</p>
-                    <p>火爆开售</p>
-                    <div>
-                        <img :src="item.items[0].image" alt />
-                    </div>
-                </div>
-                <div class="goods2_center_right">
-                    <p>{{item.items[1].title}}</p>
-                    <p>火爆开售</p>
-                    <div>
-                        <img :src="item.items[1].image" alt />
-                    </div>
-                </div>
-            </div>
-            <div class="goods2_bottom">
-                <ul>
-                    <li class="goods2_list" v-for="(item2,index2) in item.items.slice(3)" :key="index2">
-                        <p>{{item2.title}}</p>
+            <div class="goods2" v-else :key="index">
+                <div class="goodsTitle">------{{item.title}}------</div>
+                <div class="goods2_center">
+                    <div class="goods2_center_left" @click="handlerdetail(item.items[0].gid)">
+                        <p>{{item.items[0].title}}</p>
+                        <p>火爆开售</p>
                         <div>
-                            <img :src="item2.image" alt />
+                            <img :src="item.items[0].image" alt />
                         </div>
-                        <p>¥{{item2.price}}</p>
-                        <del>¥{{item2.price*2}}</del>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="goods2_center_right" @click="handlerdetail(item.items[1].gid)">
+                        <p>{{item.items[1].title}}</p>
+                        <p>火爆开售</p>
+                        <div>
+                            <img :src="item.items[1].image" alt />
+                        </div>
+                    </div>
+                </div>
+                <div class="goods2_bottom">
+                    <ul>
+                        <li
+                            class="goods2_list"
+                            v-for="(item2,index2) in item.items.slice(2)"
+                            :key="index2"
+                            @click="handlerdetail(item2.gid)"
+                        >
+                            <p>{{item2.title}}</p>
+                            <div>
+                                <img :src="item2.image" alt />
+                            </div>
+                            <p>¥{{item2.price}}</p>
+                            <del>¥{{item2.price*2}}</del>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
         </template>
-        
+
         <div class="foryou">
             <p>-----为您推荐-----</p>
             <ul>
-                <li v-for="(item,index) in tuijiandata" :key="index">
+                <li v-for="(item,index) in tuijiandata" :key="index"
+                    @click="handlerdetail(item.gid)"    
+                >
                     <div>
                         <img :src="item.image" alt />
                     </div>
@@ -130,7 +142,6 @@
                         <span>{{item.price}}</span>
                     </p>
                 </li>
-                
             </ul>
         </div>
         <div class="kong"></div>
@@ -147,7 +158,7 @@ export default {
             swiperdata: [],
             navdata: [],
             goodsdata: [],
-            tuijiandata:[]
+            tuijiandata: []
         };
     },
     created() {
@@ -158,10 +169,10 @@ export default {
     },
     methods: {
         handler() {
-            this.$router.push("/search");
+            this.$router.push("/search/");
         },
-        handlerdetail() {
-            this.$router.push("/detail");
+        handlerdetail(gid) {
+            this.$router.push("/detail?gid="+gid);
         },
         async getLunbo() {
             let data = await homelunboApi();
@@ -190,7 +201,7 @@ export default {
             let data = await getGoods();
             this.goodsdata = data.data;
         },
-        async gettuijian(){
+        async gettuijian() {
             let data = await tuijian();
             this.tuijiandata = data.data;
         }
@@ -600,7 +611,7 @@ export default {
 }
 .foryou ul li p:nth-child(2) {
     margin: 0.1rem 0;
-    width:100%;
+    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

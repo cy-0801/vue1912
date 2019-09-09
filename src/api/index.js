@@ -19,3 +19,18 @@ export const tuijian = ()=>http({
     method:"get",
     url:"/api/home/index/recom?token=1ec949a15fb709370f"
 })
+//详情接口
+export const goodsdetail = (gid)=>http({
+    method:"get",
+    url:"/api/home/goods/info?gid="+gid+"&type=details&token=1ec949a15fb709370f"
+})        
+//产品规格
+export const goodsSize = (gid)=>http({
+    method:"get",
+    url:"/api/home/goods/info?gid="+gid+"&type=spec&token=1ec949a15fb709370f"
+})
+//商品评价接口 
+export const comment = (gid)=>http({
+    method:"get",
+    url:"/api/home/reviews/index?gid="+gid+"&token=1ec949a15fb709370f&page=1"
+})
