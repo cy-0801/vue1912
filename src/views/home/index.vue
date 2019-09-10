@@ -169,7 +169,7 @@ export default {
     },
     methods: {
         handler() {
-            this.$router.push("/search/");
+            this.$router.push("/search/searchDetail?cid=492");
         },
         handlerdetail(gid) {
             this.$router.push("/detail?gid="+gid);

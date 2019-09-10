@@ -34,3 +34,13 @@ export const comment = (gid)=>http({
     method:"get",
     url:"/api/home/reviews/index?gid="+gid+"&token=1ec949a15fb709370f&page=1"
 })
+//产品分类页面左侧菜单
+export const leftmenu = ()=>http({
+    method:"get",
+    url:"/api/home/category/menu?token=1ec949a15fb709370f"
+})
+//产品分类页面右侧菜单
+export const rightmenu = (cid=493)=>http({
+    method:"get",
+    url:"/api/home/category/show?cid="+cid+"&token=1ec949a15fb709370f"
+})

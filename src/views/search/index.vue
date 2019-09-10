@@ -9,41 +9,13 @@
         <div class="page1">
             <div class="page1_left">
                 <van-sidebar v-model="activeKey">
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="潮流女装" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
-                    <van-sidebar-item title="标签名称" class="aaa"/>
+                    <van-sidebar-item 
+                        :title="item.title" 
+                        class="aaa" 
+                        v-for="(item,index) in leftList" 
+                        :key="index"
+                        @click="handlerIndex(item)"
+                    />
                 </van-sidebar>
             </div>
             <div class="page1_right">
@@ -56,7 +28,7 @@
 <script>
 import Vue from "vue";
 import { Sidebar, SidebarItem } from "vant";
-
+import {leftmenu} from "@api"
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
 
@@ -64,12 +36,22 @@ export default {
     name: "Search",
     data() {
         return {
-            activeKey: 0
+            activeKey: 0,
+            leftList:[]
         };
     },
     methods: {
         handler(){
-            this.$router.go(-1)
+            this.$router.push("/home")
+        },
+        handlerIndex(item){
+            this.$router.push("/search/searchDetail?cid="+item.cid)
+        }
+    },
+    async created(){
+        let data = await leftmenu();
+        if(data.code == "200"){
+            this.leftList = data.data;
         }
     }
 };
