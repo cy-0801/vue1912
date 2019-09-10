@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="pingjia">
-            <div v-if="this.comment.length">
-                <div class="pingjia_font">商品评价({{this.comment.length}})</div>
+            <div v-if="comment.length">
+                <div class="pingjia_font">商品评价({{comment.length}})</div>
                 <ul>
                     <li class="liList" v-for="(item,index) in comment" :key="index">
                         <div>
@@ -39,14 +39,15 @@
                 </ul>
             </div>
             <div v-else >
-                <div class="pingjia_font">商品评价({{this.comment.length}})</div>
-                <div class="nodata">{{this.nodata}}</div>
+                <div class="pingjia_font">商品评价({{comment.length}})</div>
+                <div class="nodata">{{nodata}}</div>
             </div>
         </div>
         <div class="jump_assess_dad">
-            <router-link class="jump_assess" to="/detail/assess">查看更多评价</router-link>
+            <router-link class="jump_assess" :to=this.path>查看更多评价</router-link>
         </div>
         <div class="kong"></div>
+        <div class="mask123" v-show=mask0 @touchmove.prevent></div>
         <div>
             <div class="btns">
                 <div class="btns_left">收藏</div>
@@ -58,10 +59,10 @@
                         <img src="//vueshop.glbuys.com/uploadfiles/1524556409.jpg" alt />
                     </div>
                     <div class="goods-detail">
-                        <div class="goods-title">{{this.goodsDetail.title}}</div>
+                        <div class="goods-title">{{goodsDetail.title}}</div>
                         <div class="goods-right">
-                            <div class="goods-price">￥{{this.goodsDetail.price}}</div>
-                            <div class="goods-num">商品编号:{{this.goodsDetail.gid}}</div>
+                            <div class="goods-price">￥{{goodsDetail.price}}</div>
+                            <div class="goods-num">商品编号:{{goodsDetail.gid}}</div>
                         </div>
                     </div>
                     <div class="del">
@@ -74,8 +75,9 @@
                     <div class="name" v-for="(item,index) in this.list" :key="index">
                         <div class="one">{{item.title}}</div>
                         <div class="four">
-                            <div class="aaa" v-for="(item2,index2) in item.values" :key="index2"
-                            
+                            <div v-for="(item2,index2) in item.values" :key="index2"
+                                @click="selsect(index,index2)"
+                                :class="{aaa:true,active:item2.checked}"
                             >{{item2.value}}</div>
                         </div>
                     </div>
@@ -83,14 +85,14 @@
                 <div class="goods-buyNum">
                     <div>购买数量</div>
                     <div>
-                        <div class="type">-</div>
+                        <div class="type" @click="handleDel()">-</div>
                         <div class="shuru">
-                            <input type="text" value="1" />
+                            <input type="text" v-model="value" @input="handleChange($event)"/>
                         </div>
-                        <div class="type">+</div>
+                        <div class="type" @click="handleAdd()">+</div>
                     </div>
                 </div>
-                <div class="yes">确认</div>
+                <div class="yes" @click="tijiao()">确认</div>
             </div>
         </div>
     </div>
@@ -98,6 +100,8 @@
 
 <script>
 import { goodsdetail, comment ,goodsSize} from "@api";
+import {mapMutations} from "vuex"
+import Vue from "vue"
 export default {
     name: "Goods",
     data() {
@@ -107,15 +111,77 @@ export default {
             goodsDetail: {},
             comment: [],
             nodata: "",
-            list:[]
+            list:[],
+            path:"/detail/assess?gid="+this.$route.query.gid,
+            value:1,
+            mask0:false,
         };
     },
     methods: {
+        ...mapMutations({
+            addList:"goods/addList"
+        }),
         addCart() {
+            this.mask0 = true
             this.movePanel = "up";
         },
         close() {
+            this.mask0 = false
             this.movePanel = "down";
+        },
+        selsect(index,index2){ 
+            for(var i=0;i<this.list[index].values.length;i++){
+                // this.$set(this.list[index].values[i],'checked',false);
+                this.list[index].values[i].checked = false;
+                // Vue.set(this.list[index].values[i],checked,false)
+            }
+            this.list[index].values[index2].checked = true;
+            // Vue.set(this.list[index].values[index2],checked,true)
+            // this.$set(this.list[index].values[i],'checked',true);
+            this.$forceUpdate(); 
+        },
+        handleAdd(){
+           this.value++
+        },
+        handleDel(){
+            if(this.value>1){
+                this.value--;
+            }else{
+                this.value=1;
+            }
+        },
+        handleChange(e){
+            this.value = parseInt(e.target.value.replace(/\D/g,""));
+            console.log(e.target.value,"输入的触发函数")
+        },
+        tijiao(){
+            // 颜色 尺寸 
+            //价格 gid title img 快递费 数量
+            let obj = {};
+            obj.title = this.goodsDetail.title;
+            obj.price = this.goodsDetail.price;
+            obj.gid = this.goodsDetail.gid;
+            obj.freight = this.goodsDetail.freight;
+            obj.image = this.goodsDetail.images[0];
+            obj.mounts = this.value;
+            var info = {};
+            for(var i=0;i<this.list.length;i++){
+                for(var j=0;j<this.list[i].values.length;j++){
+                    if(this.list[i].values[j].checked == true){
+                        // console.log(this.list[i].title)
+                        // console.log(this.list[i].values[j].value)
+                        if(i == 0){
+                            info.color = this.list[i].values[j].value;
+                        }else{
+                            info.size = this.list[i].values[j].value;
+                        }    
+                    }
+                }
+            }
+            obj.info = info;
+            this.addList(obj);
+            this.close();
+            alert("已添加到购物车");
         }
     },
     async created() {
@@ -149,7 +215,6 @@ export default {
         let sizedata = await goodsSize(this.$route.query.gid);
         
         if(sizedata.code == "200"){
-            console.log(sizedata.data);
             this.list = sizedata.data;
             for(var i=0;i<this.list.length;i++){
                 this.list[i].values.forEach((item)=>{
@@ -162,6 +227,10 @@ export default {
 </script>
 
 <style scoped>
+.mask123{
+    width:100%;height:13.34rem;background:rgba(0,0,0,.3);
+    position: absolute;z-index:10;top:0;left:0;
+}
 .banner {
     width: 100%;
     height: 7.6rem;
@@ -427,6 +496,10 @@ export default {
     justify-content: center;
     margin-left: 0.2rem;
     background: #efefef;
+}
+.goods-style .name .four .active{
+    background: #FDA208;
+    color: #FFFFFF;
 }
 .goods-buyNum {
     width: 100%;

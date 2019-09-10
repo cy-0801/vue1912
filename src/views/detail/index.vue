@@ -9,14 +9,6 @@
                     :to="item.path"
                     tag="div"
                 >{{item.name}}</router-link>
-                <!-- <router-link
-                    to="/detail/detail"
-                    tag="div"
-                >详情</router-link>
-                <router-link
-                    to="/detail/assess"
-                    tag="div"
-                >评价</router-link> -->
             </div>
             <div class="right_icon">
                 <img src="../../assets/images/home/goods/cart.png" alt="">
