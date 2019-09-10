@@ -6,22 +6,24 @@
             </div>
             <div>请输入宝贝名称</div>
         </div>
-        <div class="page1">
-            <div class="page1_left">
-                <van-sidebar v-model="activeKey">
-                    <van-sidebar-item 
-                        :title="item.title" 
-                        class="aaa" 
-                        v-for="(item,index) in leftList" 
-                        :key="index"
-                        @click="handlerIndex(item)"
-                    />
-                </van-sidebar>
+            <div class="page1">  
+                <div class="page1_left">
+                    <Cy-scroll>
+                    <van-sidebar v-model="activeKey">
+                        <van-sidebar-item 
+                            :title="item.title" 
+                            class="aaa" 
+                            v-for="(item,index) in leftList" 
+                            :key="index"
+                            @click="handlerIndex(item)"
+                        />
+                    </van-sidebar>
+                    </Cy-scroll>
+                </div>
+                <div class="page1_right">
+                    <router-view></router-view>
+                </div>   
             </div>
-            <div class="page1_right">
-                <router-view></router-view>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -75,12 +77,10 @@ export default {
 .page1 .page1_left{
     width:2rem;
     height:12.3rem;
-    overflow: auto;
 }
 .page1 .page1_right{
     height:12.3rem;
     width:5.5rem;
-    overflow: auto;
 }
 /* 
  ------------------------------------

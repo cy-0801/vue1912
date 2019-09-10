@@ -1,30 +1,31 @@
 <template>
-    <div>
-        <div class="jianjie" v-html="this.para">
-            
+    <Cy-scroll>
+        <div>
+            <div class="jianjie" v-html="this.para"></div>
         </div>
-    </div>
+    </Cy-scroll>
 </template>
 
 <script>
-import {goodsdetail} from "@api"
+import { goodsdetail } from "@api";
 export default {
-    name:"Detail",
-    data(){
+    name: "Detail",
+    data() {
         return {
-            para:""
-        }
+            para: ""
+        };
     },
-    async created(){
+    async created() {
         let data = await goodsdetail(this.$route.query.gid);
-        this.para = data.data.bodys
+        this.para = data.data.bodys;
     }
-}
+};
 </script>
 
 <style scoped>
-    .jianjie{
-        width:100%;
-        padding:.2rem;
-    }
+.jianjie {
+    width: 100%;
+    padding: 0.2rem;
+    font-size:.3rem;
+}
 </style>

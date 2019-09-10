@@ -1,4 +1,5 @@
 <template>
+<Cy-scroll>
     <div class="a">
         <ul class="block">
             <li class="block_li" v-for="(item,index) in rightList" :key="index">
@@ -14,6 +15,7 @@
             </li>
         </ul>
     </div>
+    </Cy-scroll>
 </template>
 
 <script>

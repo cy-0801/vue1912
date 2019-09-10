@@ -1,4 +1,5 @@
 <template>
+<Cy-scroll>
     <div class="pingjia">
         <div class="pingjia_font">商品评价({{this.list.length}})</div>
         <ul>
@@ -12,6 +13,7 @@
             </li>
         </ul>
     </div>
+    </Cy-scroll>
 </template>
 
 <script>

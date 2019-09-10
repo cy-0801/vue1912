@@ -12,7 +12,7 @@
             </div>
             <div class="right_icon">
                 <img src="../../assets/images/home/goods/cart.png" alt="">
-                <div class="slot"></div>
+                <div class="slot" v-show="list.length>0?true:false "></div>
             </div>
         </div>
         <div class="router_view">
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+
+import {mapState} from "vuex"
 export default {
     name:"detail",
     data(){
@@ -47,6 +49,11 @@ export default {
             this.$router.push("/home")
         }
     },
+    computed:{
+        ...mapState({
+            list:state=>state.goods.list
+        })
+    }
 
 }
 </script>

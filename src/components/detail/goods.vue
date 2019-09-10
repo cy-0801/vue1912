@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <div class="banner">
             <div class="swiper-container" ref="swiper-container1">
@@ -96,6 +97,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>

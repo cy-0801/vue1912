@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper123">
         <ul>
             <router-link v-for="(item,index) in navs" 
                 :key="index"
@@ -65,6 +65,9 @@ export default {
 
 
 <style scoped>
+.wrapper123{
+    width:100%;height:1rem;
+}
 ul{
     width:100%;height:1rem;background:white;position: fixed;bottom:0;left:0;
     display: flex;justify-content: space-around;

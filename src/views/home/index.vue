@@ -1,5 +1,7 @@
 <template>
+<Cy-scroll>
     <div class="big">
+        
         <div class="header">
             <div class="header_left" @click="handler()"></div>
             <div class="header_center">
@@ -145,7 +147,8 @@
             </ul>
         </div>
         <div class="kong"></div>
-    </div>
+        
+    </div></Cy-scroll>
 </template>
 
 <script>
