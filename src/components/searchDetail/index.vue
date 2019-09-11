@@ -24,14 +24,25 @@ export default {
     name:"SearchDetail",
     data(){
         return {
-            rightList:[]
+            // rightList: JSON.parse(sessionStorage.getItem("rightList"+this.$route.query.cid)) || []
+            rightList:  []
         }
     },
     async created(){
-        let data = await rightmenu(this.$route.query.cid);
-        if(data.code == "200"){
-            this.rightList = data.data;
-        }
+        // if(!sessionStorage.getItem("rightList"+this.$route.query.cid)){
+        //     let data = await rightmenu(this.$route.query.cid);
+        //     if(data.code == "200"){
+        //         this.rightList = data.data;
+        //         sessionStorage.setItem("rightList"+this.$route.query.cid,JSON.stringify(data.data))
+        //     }
+        // }
+        // if(!sessionStorage.getItem("rightList"+this.$route.query.cid)){
+            let data = await rightmenu(this.$route.query.cid);
+            if(data.code == "200"){
+                this.rightList = data.data;
+                // sessionStorage.setItem("rightList"+this.$route.query.cid,JSON.stringify(data.data))
+            }
+        // }
     },
     async updated(){
         let data = await rightmenu(this.$route.query.cid);

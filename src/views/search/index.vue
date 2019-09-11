@@ -21,7 +21,9 @@
                     </Cy-scroll>
                 </div>
                 <div class="page1_right">
-                    <router-view></router-view>
+                    
+                        <router-view></router-view>
+                    
                 </div>   
             </div>
     </div>

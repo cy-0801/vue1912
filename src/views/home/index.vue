@@ -1,7 +1,5 @@
 <template>
-<Cy-scroll>
-    <div class="big">
-        
+    <div class="big" ref="aaa">
         <div class="header">
             <div class="header_left" @click="handler()"></div>
             <div class="header_center">
@@ -10,6 +8,7 @@
             </div>
             <div class="header_right">登录</div>
         </div>
+
         <!-- 轮播图 -->
         <div class="banner">
             <div class="swiper-container" ref="swiper-container">
@@ -36,7 +35,7 @@
                 <router-link
                     v-for="(item,index) in navdata?navdata:''"
                     :key="index"
-                    to="/search"
+                    to="/search/searchDetail"
                     tag="li"
                 >
                     <img :src="item.image" alt />
@@ -132,8 +131,10 @@
         <div class="foryou">
             <p>-----为您推荐-----</p>
             <ul>
-                <li v-for="(item,index) in tuijiandata" :key="index"
-                    @click="handlerdetail(item.gid)"    
+                <li
+                    v-for="(item,index) in tuijiandata"
+                    :key="index"
+                    @click="handlerdetail(item.gid)"
                 >
                     <div>
                         <img :src="item.image" alt />
@@ -147,24 +148,23 @@
             </ul>
         </div>
         <div class="kong"></div>
-        
-    </div></Cy-scroll>
+    </div>
 </template>
 
 <script>
-import { homelunboApi, homeNav, getGoods, tuijian } from "@api";
+import { homelunboApi, homeNav, getGoods, tuijian, } from "@api";
 
 export default {
     name: "home",
     data() {
         return {
-            swiperdata: [],
-            navdata: [],
-            goodsdata: [],
-            tuijiandata: []
+            swiperdata: JSON.parse(sessionStorage.getItem("swiperdata")) || [],
+            navdata: JSON.parse(sessionStorage.getItem("navdata")) || [],
+            goodsdata: JSON.parse(sessionStorage.getItem("goodsdata")) || [],
+            tuijiandata: JSON.parse(sessionStorage.getItem("tuijiandata")) || []
         };
     },
-    created() {
+    async created() {
         this.getLunbo();
         this.homeNav();
         this.getGoods();
@@ -175,11 +175,15 @@ export default {
             this.$router.push("/search/searchDetail?cid=492");
         },
         handlerdetail(gid) {
-            this.$router.push("/detail?gid="+gid);
+            this.$router.push("/detail?gid=" + gid);
         },
         async getLunbo() {
-            let data = await homelunboApi();
-            this.swiperdata = data.data;
+
+            if(!sessionStorage.getItem("swiperdata")){
+                let data = await homelunboApi();
+                this.swiperdata = data.data;
+                sessionStorage.setItem("swiperdata",JSON.stringify(data.data));
+            }
             this.$nextTick(() => {
                 new Swiper(this.$refs["swiper-container"], {
                     loop: true, // 循环模式选项
@@ -197,16 +201,25 @@ export default {
             });
         },
         async homeNav() {
-            let data = await homeNav();
-            this.navdata = data.data;
+            if(!sessionStorage.getItem("navdata")){
+                let data = await homeNav();
+                this.navdata = data.data;
+                sessionStorage.setItem("navdata",JSON.stringify(data.data))
+            }
         },
         async getGoods() {
-            let data = await getGoods();
-            this.goodsdata = data.data;
+            if(!sessionStorage.getItem("goodsdata")){
+                let data = await getGoods();
+                this.goodsdata = data.data;
+                sessionStorage.setItem("goodsdata",JSON.stringify(data.data))
+            }
         },
         async gettuijian() {
-            let data = await tuijian();
-            this.tuijiandata = data.data;
+            if(!sessionStorage.getItem("tuijiandata")){
+                let data = await tuijian();
+                this.tuijiandata = data.data;
+                sessionStorage.setItem("tuijiandata",JSON.stringify(data.data))
+            }    
         }
     }
 };

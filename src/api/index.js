@@ -44,3 +44,16 @@ export const rightmenu = (cid=493)=>http({
     method:"get",
     url:"/api/home/category/show?cid="+cid+"&token=1ec949a15fb709370f"
 })
+
+//是否注册过会员 
+export const isVIP = (username)=>{
+    let formdata = new FormData();
+    formdata.append("username",19577664433)
+    return http({
+        method:"post",
+        url:"/api/home/user/isreg?token=1ec949a15fb709370f",
+        data:formdata
+    })
+}
+
+

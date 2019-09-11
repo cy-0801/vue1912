@@ -10,13 +10,15 @@
                     tag="div"
                 >{{item.name}}</router-link>
             </div>
-            <div class="right_icon">
+            <div class="right_icon" @click="jumpCar()">
                 <img src="../../assets/images/home/goods/cart.png" alt="">
                 <div class="slot" v-show="list.length>0?true:false "></div>
             </div>
         </div>
         <div class="router_view">
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </div>
     </div>
 </template>
@@ -47,6 +49,9 @@ export default {
     methods:{
         handler(){
             this.$router.push("/home")
+        },
+        jumpCar(){
+            this.$router.push("/shoppingCar")
         }
     },
     computed:{
