@@ -47,7 +47,7 @@ export default {
                 },
                 {
                     name:"我的",
-                    path:"/mine",
+                    path:"/my",
                     note: {
                         backgroundImage: "url(" + require("../../assets/my1.png") + ")",
                         backgroundRepeat: "no-repeat"

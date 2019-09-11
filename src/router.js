@@ -25,12 +25,35 @@ export default new Router({
         }
     },
     {
-        path:"/mine",
-        name:"mine",
-        component:()=>import("./views/mine"),
+        path:"/my",
+        name:"my",
+        component:()=>import("@views/my/index.vue"),
         meta:{
             flag:true
         }
+    },
+    {
+        path:"/login",
+        component:()=>import("@views/my/login.vue"),
+        name:"login",
+       
+    },
+    {
+        path:'/place',
+        component:()=>import("@views/my/place.vue"),
+        name:"place"
+    },
+    {
+        path:"/profile",
+        component:()=>import("@views/my/profile.vue"),
+        name:"profile",
+       
+    },
+    {
+        path:"/reg",
+        component:()=>import("@views/my/reg.vue"),
+        name:"reg",
+       
     },
     {
         path:"/search",
