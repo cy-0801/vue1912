@@ -4,7 +4,7 @@
             <div class="header_left" @click="handler()"></div>
             <div class="header_center">
                 <div class="header_center_left"></div>
-                <div class="header_center_right">输入喜欢的宝贝名称</div>
+                <div class="header_center_right" @click="handleTO()">输入喜欢的宝贝名称</div>
             </div>
             <div class="header_right">登录</div>
         </div>
@@ -171,6 +171,9 @@ export default {
         this.gettuijian();
     },
     methods: {
+        handleTO(){
+            this.$router.push("/searchOne")
+        },
         handler() {
             this.$router.push("/search/searchDetail?cid=492");
         },

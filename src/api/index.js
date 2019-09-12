@@ -56,4 +56,16 @@ export const isVIP = (username)=>{
     })
 }
 
+//热门搜索
+export const hotSearch = ()=>http({
+    method:"get",
+    url:"/api/home/public/hotwords?token=1ec949a15fb709370f"
+})
+
+//产品搜索页面的结果
+
+export const goodsSearch = (kwords)=>http({
+    method:"get",
+    url:"/api/home/goods/param?kwords="+kwords+"&token=1ec949a15fb709370f"
+})
 

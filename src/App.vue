@@ -8,9 +8,10 @@
 <script>
 import TabBar from "./common/tabBar"
 export default {
+    name:"App",
     components:{
         TabBar
-    }
+    },
 }
 </script>
 

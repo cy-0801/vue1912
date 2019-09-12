@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <div class="banner">
             <div class="swiper-container" ref="swiper-container1">
@@ -39,16 +38,16 @@
                     </li>
                 </ul>
             </div>
-            <div v-else >
+            <div v-else>
                 <div class="pingjia_font">商品评价({{comment.length}})</div>
                 <div class="nodata">{{nodata}}</div>
             </div>
         </div>
         <div class="jump_assess_dad">
-            <router-link class="jump_assess" :to=this.path>查看更多评价</router-link>
+            <router-link class="jump_assess" :to="this.path">查看更多评价</router-link>
         </div>
         <div class="kong"></div>
-        <div class="mask123" v-show=mask0 @touchmove.prevent></div>
+        <div class="mask123" v-show="mask0" @touchmove.prevent></div>
         <div>
             <div class="btns">
                 <div class="btns_left">收藏</div>
@@ -76,7 +75,9 @@
                     <div class="name" v-for="(item,index) in this.list" :key="index">
                         <div class="one">{{item.title}}</div>
                         <div class="four">
-                            <div v-for="(item2,index2) in item.values" :key="index2"
+                            <div
+                                v-for="(item2,index2) in item.values"
+                                :key="index2"
                                 @click="selsect(index,index2)"
                                 :class="{aaa:true,active:item2.checked}"
                             >{{item2.value}}</div>
@@ -88,7 +89,7 @@
                     <div>
                         <div class="type" @click="handleDel()">-</div>
                         <div class="shuru">
-                            <input type="text" v-model="value" @input="handleChange($event)"/>
+                            <input type="text" v-model="value" @input="handleChange($event)" />
                         </div>
                         <div class="type" @click="handleAdd()">+</div>
                     </div>
@@ -97,13 +98,14 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
-import { goodsdetail, comment ,goodsSize} from "@api";
-import {mapMutations} from "vuex"
-import Vue from "vue"
+import { goodsdetail, comment, goodsSize } from "@api";
+import { mapMutations } from "vuex";
+import Vue from "vue";
+import { Dialog } from 'vant';
+Vue.use(Dialog)
 export default {
     name: "Goods",
     data() {
@@ -113,26 +115,26 @@ export default {
             goodsDetail: {},
             comment: [],
             nodata: "",
-            list:[],
-            path:"/detail/assess?gid="+this.$route.query.gid,
-            value:1,
-            mask0:false,
+            list: [],
+            path: "/detail/assess?gid=" + this.$route.query.gid,
+            value: 1,
+            mask0: false
         };
     },
     methods: {
         ...mapMutations({
-            addList:"goods/addList"
+            addList: "goods/addList"
         }),
         addCart() {
-            this.mask0 = true
+            this.mask0 = true;
             this.movePanel = "up";
         },
         close() {
-            this.mask0 = false
+            this.mask0 = false;
             this.movePanel = "down";
         },
-        selsect(index,index2){ 
-            for(var i=0;i<this.list[index].values.length;i++){
+        selsect(index, index2) {
+            for (var i = 0; i < this.list[index].values.length; i++) {
                 // this.$set(this.list[index].values[i],'checked',false);
                 this.list[index].values[i].checked = false;
                 // Vue.set(this.list[index].values[i],checked,false)
@@ -140,24 +142,24 @@ export default {
             this.list[index].values[index2].checked = true;
             // Vue.set(this.list[index].values[index2],checked,true)
             // this.$set(this.list[index].values[i],'checked',true);
-            this.$forceUpdate(); 
+            this.$forceUpdate();
         },
-        handleAdd(){
-           this.value++
+        handleAdd() {
+            this.value++;
         },
-        handleDel(){
-            if(this.value>1){
+        handleDel() {
+            if (this.value > 1) {
                 this.value--;
-            }else{
-                this.value=1;
+            } else {
+                this.value = 1;
             }
         },
-        handleChange(e){
-            this.value = parseInt(e.target.value.replace(/\D/g,""));
-            console.log(e.target.value,"输入的触发函数")
+        handleChange(e) {
+            this.value = parseInt(e.target.value.replace(/\D/g, ""));
+            console.log(e.target.value, "输入的触发函数");
         },
-        tijiao(){
-            // 颜色 尺寸 
+        tijiao() {
+            // 颜色 尺寸
             //价格 gid title img 快递费 数量
             let obj = {};
             obj.title = this.goodsDetail.title;
@@ -166,28 +168,50 @@ export default {
             obj.freight = this.goodsDetail.freight;
             obj.image = this.goodsDetail.images[0];
             obj.mounts = this.value;
+            obj.checked = true;
             var info = {};
-            for(var i=0;i<this.list.length;i++){
-                for(var j=0;j<this.list[i].values.length;j++){
-                    if(this.list[i].values[j].checked == true){
+            for (var i = 0; i < this.list.length; i++) {
+                for (var j = 0; j < this.list[i].values.length; j++) {
+                    if (this.list[i].values[j].checked == true) {
                         // console.log(this.list[i].title)
                         // console.log(this.list[i].values[j].value)
-                        if(i == 0){
+                        if (i == 0) {
                             info.color = this.list[i].values[j].value;
-                        }else{
+                        } else {
                             info.size = this.list[i].values[j].value;
-                        }    
+                        }
                     }
                 }
             }
             obj.info = info;
+            for(var i=0;i<this.list.length;i++){
+                let flag = false;
+                for(var j=0;j<this.list[i].values.length;j++){
+                    flag = (this.list[i].values[j].checked == true)
+                    if(flag) {
+                        break;
+                    }
+                }
+                if(!flag){
+                    if(i == 0){
+                        alert("请选择颜色")
+                    }else{
+                        alert("请选择尺寸")
+                    }
+                    return;
+                }
+            }
             this.addList(obj);
             this.close();
             alert("已添加到购物车");
+            // Dialog.alert({
+            //     message: "已添加到购物车"
+            // }).then(() => {
+            //     // on close
+            // });
         }
     },
     async created() {
-        
         let data = await goodsdetail(this.$route.query.gid);
         if (data.code == "200") {
             this.goodsDetail = data.data;
@@ -215,13 +239,13 @@ export default {
         }
 
         let sizedata = await goodsSize(this.$route.query.gid);
-        
-        if(sizedata.code == "200"){
+
+        if (sizedata.code == "200") {
             this.list = sizedata.data;
-            for(var i=0;i<this.list.length;i++){
-                this.list[i].values.forEach((item)=>{
-                    item.checked = false
-                })
+            for (var i = 0; i < this.list.length; i++) {
+                this.list[i].values.forEach(item => {
+                    item.checked = false;
+                });
             }
         }
     }
@@ -229,9 +253,14 @@ export default {
 </script>
 
 <style scoped>
-.mask123{
-    width:100%;height:13.34rem;background:rgba(0,0,0,.3);
-    position: absolute;z-index:10;top:0;left:0;
+.mask123 {
+    width: 100%;
+    height: 13.34rem;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
 }
 .banner {
     width: 100%;
@@ -318,11 +347,14 @@ export default {
     font-size: 0.2rem;
     color: #7b7f82;
 }
-.nodata{
-    font-size:.4rem;
-    color:#48Ef94;
-    width:100%;height:.8rem;
-    display:flex;justify-content: center;align-items: center;
+.nodata {
+    font-size: 0.4rem;
+    color: #48ef94;
+    width: 100%;
+    height: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .jump_assess_dad {
     width: 100%;
@@ -499,9 +531,9 @@ export default {
     margin-left: 0.2rem;
     background: #efefef;
 }
-.goods-style .name .four .active{
-    background: #FDA208;
-    color: #FFFFFF;
+.goods-style .name .four .active {
+    background: #fda208;
+    color: #ffffff;
 }
 .goods-buyNum {
     width: 100%;
@@ -551,4 +583,6 @@ export default {
     font-size: 0.38rem;
     color: #fff;
 }
+/*弹出层*/
+
 </style>

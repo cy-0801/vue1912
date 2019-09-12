@@ -77,7 +77,10 @@ export default new Router({
     {
         path:"/searchOne",
         name:"searchOne",
-        component:()=>import("./views/searchOne")
+        component:()=>import("./views/searchOne"),
+        meta:{
+            flag:true
+        }
     }
     
   ]
