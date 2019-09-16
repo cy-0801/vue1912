@@ -1,5 +1,5 @@
 import http from "@utils/http.js"
-<<<<<<< HEAD
+
 //轮播图接口
 export const homelunboApi = () => http({
     method:"get",
@@ -70,7 +70,7 @@ export const goodsSearch = (kwords)=>http({
     url:"/api/home/goods/param?kwords="+kwords+"&token=1ec949a15fb709370f"
 })
 
-=======
+
 //判断该手机号有没有注册过
 export const zhuceApi = (username)=>{
     let formData= new FormData();
@@ -143,4 +143,4 @@ export const addressApi=()=>http({
 })
 
 
->>>>>>> liu
+
