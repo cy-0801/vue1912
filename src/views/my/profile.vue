@@ -5,13 +5,13 @@
             <ul class="head">
                 <li>头像</li>
                 <li>
-                    <!-- <img src="" alt=""> -->
                     <input ref="headfile" type="file" @change="upload()">
+                    <div class="divImg"><img :src="showHead?showHead:require('@assets/images/user/my/default-head.png')" alt=""/></div>
                 </li>
             </ul>
              <ul class="list">
                 <li>昵称</li>
-                <li><input type="text" placeholder="请设置昵称" @change="upNickname()"></li>
+                <li><input type="text" placeholder="请设置昵称"  v-model="nickname"></li>
                 <!-- <mt-actionsheet
                   :actions="actions"
                   v-model="sheetVisible">
@@ -35,8 +35,9 @@
 import Vue from "vue"
 import { Actionsheet,Toast } from 'mint-ui';
 Vue.component("mt-actionsheet", Actionsheet);
-import {headApi} from "@api"
+import {headApi,saveApi} from "@api"
  let oToast=Toast;
+ import {mapState} from "vuex"
  import My from "@components/my/index.vue"
     export default {
         name:"profile",
@@ -54,29 +55,44 @@ import {headApi} from "@api"
                     }
                 ],
                 gender:0,
-                nickname:''
+                nickname:'',
+                showHead:'',
+                headUp:''
             }
            
         },
         components:{
             My
         },
+        computed:{
+            ...mapState({
+                uid:state=>state.user.uid
+            })
+        },
         methods:{
-            save(){
+            async save(){
                 if(this.nickname.match(/^\s*$/)){
                     oToast("请你输入昵称");
                     return;
                 }
-                 if(this.nickname.match(/^\s*$/)){
+                 if(this.gender===0){
                     oToast("请选择性别");
                     return;
                 }
+                // let data= await saveApi(this.uid,this.nickname,this.gender,this.headUp)
+                // console.log(data)
+                this.$router.push("/my")
+                oToast("保存成功")
             },
             //上传头像
            async upload(){
-                let headfile=this.$refs.headfile.files[0];
-                let data= await headApi({headfile:headfile})
+                let head=this.$refs.headfile.files[0];
+                let data= await headApi(head)
                 console.log(data)
+                if(data.code==200){
+                    this.showHead="http://vueshop.glbuys.com/userfiles/head/"+data.data.msbox;
+                    this.headUp=data.data.msbox
+                }
             },
              //选择性别
             selectGender(data){
@@ -95,9 +111,10 @@ import {headApi} from "@api"
 .head{width:100%;height:1.2rem;border-bottom: 1px solid #EFEFEF;display: flex;
 align-items: center;-webkit-align-items: center;justify-content: space-between;}
 .head li:nth-child(1){font-size:0.28rem;margin-left:5%;}
-.head li:nth-child(2){width:1rem;height:1rem;margin-right:10%;background:red}
+.head li:nth-child(2){width:1rem;height:1rem;margin-right:10%;}
 .head li:nth-child(2) img{width:100%;height:100%;border-radius: 100%;}
-.head li:nth-child(2) input{width:100%;height:100%;opacity: 0;}
+.divImg{position: absolute;width:1rem;height:1rem;top:110px;}
+.head li:nth-child(2) input{width:100%;height:100%;opacity: 0;position: relative;z-index:2}
  ul.list{width:100%;height:0.8rem;border-bottom: 1px solid #EFEFEF;display: flex;
  align-items: center;-webkit-align-items: center;justify-content: space-between;font-size:0.28rem;}
 .list li:nth-child(1){margin-left:5%;}

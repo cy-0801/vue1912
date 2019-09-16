@@ -56,28 +56,30 @@ export default {
         oToast("请输入手机号");
         return;
       }
-     
+      let data = await zhuceApi(this.cellphone);
+      if(data.data.isreg==="1"){
+        oToast('该手机号注册过')
+        return; 
+      }
       if (this.msgCode.match(/^\s*$/)) {
         oToast("请输入短信验证码");
         return;
       }
-      if (this.password.match(/^[a-z0-9_-]{9}$/)) {
-        oToast("请输入9位密码");
+      if (this.password.match(/^\s*$/)) {
+        oToast("请输入密码");
         return;
       }
       //防止网慢多次提交
-            if(this.isSubmit){
-                this.isSubmit=false
-                let data=await btnApi(this.cellphone,this.password,this.msgCode,)
-              alert("11")
-              console.log(data)
-              if(data.code===200){
-                this.$router.replace("/login?pageFrom=reg")
-              }else{
-                this.isSubmit=true;
-                oToast(data.data)
-              }
-            }
+      if(this.isSubmit){
+          this.isSubmit=false
+          let data=await btnApi(this.msgCode,this.cellphone,this.password)
+        if(data.code===200){
+          this.$router.replace("/login?pageFrom=reg")
+        }else{
+          this.isSubmit=true;
+          oToast(data.data)
+        }
+      }
     },
     //获取短信验证码
     async getMsgCode() {
@@ -86,7 +88,7 @@ export default {
         return;
       } else {   
        let data = await zhuceApi(this.cellphone);
-            console.log(data);
+            // console.log(data);
         if(data.data.isreg==="1"){
           oToast('该手机号注册过')
           return;
@@ -110,11 +112,7 @@ export default {
       }
     },
     //检测是否注册过
-    checkedUserReg(callback){
-        return {
-
-        }
-    }
+   
   },
   components: {
     My

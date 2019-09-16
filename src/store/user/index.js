@@ -14,11 +14,22 @@ const mutations={
         localStorage['isLogin']=palyload.isLogin
         localStorage['uid']=palyload.uid
         localStorage['authToken']=palyload.authToken
+    },
+    outLogin(state){
+        state.nickname="";
+        state.authToken="";
+        state.uid="";
+        state.isLogin=false;
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("authToken")
+        localStorage.removeItem("uid")
     }
 };
 const actions={};
 export default{
     state,
     mutations,
-    actions
+    actions,
+    namespaced:true
 }

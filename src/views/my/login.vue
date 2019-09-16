@@ -55,10 +55,10 @@ import My from "@components/my/index.vue"
                    oToast("请输入9位密码");
                    return;
                 }
-                let data=await loginApi({cellphone:this.cellphone,password:this.password})
+                let data=await loginApi(this.cellphone,this.password)
                 console.log(data)
                  oToast("登入成功");
-                 this.$router.go(-1)
+                 this.$router.push("/my")
            }
        }
     }
