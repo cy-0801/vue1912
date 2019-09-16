@@ -1,0 +1,61 @@
+// var Mock=require('mockjs')
+Mock.mock("/api/v1/address","post",{
+    "data|10":[
+        {
+        title:"水电费",
+        cell:"15131660968",
+        address:"河北省石家庄市",
+        },
+        {
+            title:"1111",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"dddd",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"dddd",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"dddd",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"水电费",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"水ddd",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"水dd",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"水dd电费",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+        {
+            title:"水aa电费",
+            cell:"15131660968",
+            address:"河北省石家庄市",
+        },
+    ]
+})
+Mock.mocK("/api/v1/address","post",function(options){
+    let{limit,page}=JSON.parse(options.body);
+    return data.data.slice((page-1)*limit,(limit*page)-1)
+})
+
+    
